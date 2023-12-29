@@ -42,7 +42,37 @@ for df in dfs:
 
 # ----------- GENERATE HTML ----------
 
-html_content = "<html><body>"
+html_content = """
+<html>
+<head>
+<style>
+    .container {
+        column-count: 2;
+        column-gap: 20px;
+    }
+    .barcode-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        break-inside: avoid;
+    }
+    .barcode-item img {
+        max-width: 100%;
+        height: auto;
+    }
+    .description {
+        margin-left: 10px;
+    }
+    @media screen and (max-width: 768px) {
+        .container {
+            column-count: 1;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+"""
 
 # Directory containing the barcode SVG files
 barcode_dir = 'barcodes'
@@ -60,11 +90,19 @@ for filename in os.listdir(barcode_dir):
         filepath = os.path.join(barcode_dir, filename)
         
         # Add an img tag for the barcode and the description next to it
-        html_content += f'<img src="{filepath}" alt="{filename}"> {description}<br>'
+        html_content += f"""
+        <div class="barcode-item">
+            <img src="{filepath}" alt="{filename}">
+            <span class="description">{description}</span>
+        </div>
+        """
 
-html_content += "</body></html>"
+html_content += """
+</div>
+</body>
+</html>
+"""
 
 # Write the HTML content to a file
 with open("barcodes.html", "w") as html_file:
     html_file.write(html_content)
-
