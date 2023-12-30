@@ -6,8 +6,9 @@ import os
 # Read pdf into list of DataFrame
 dfs = tabula.read_pdf("iris.pdf", pages='all')
 
-print(type(dfs))
-print(len(dfs))
+# print(type(dfs))
+# print(len(dfs))
+print(dfs)
 
 # ------------GENERATE BARCODES -------------------------------
 
@@ -28,7 +29,7 @@ for df in dfs:
 
     # Generating barcodes for each product and storing descriptions
     for index, row in df.iterrows():
-        product_number = str(row['Product'])
+        product_number = str(row['UPC'])
         description = row['Description']
 
         # Ensure product number is 12 digits for UPC-A
