@@ -107,3 +107,11 @@ html_content += """
 # Write the HTML content to a file
 with open("barcodes.html", "w") as html_file:
     html_file.write(html_content)
+
+
+# TODO: Create frontend to handle file upload
+    # TODO: Add styles + Instructions
+# TODO: Tweak backend logic to handle file upload, instead of local pdf file
+    # TODO: Validation? Perhaps to prevent app from crashing.
+# TODO: Delete SVGs for next person
+# TODO: Delete barcodes.html? Or maybe keep it since it'll get replaced anyway
