@@ -1,14 +1,14 @@
-from fastapi import FastAPI, File, UploadFile, Request
+from fastapi import FastAPI, File, UploadFile, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
+import shutil
+from .utils.barcode_utils import process_pdf
 
 # Instantiate app
 app = FastAPI()
 
-# Directory for barcode svgs
-os.makedirs('static/barcodes', exist_ok=True)
 
 app.mount('/static', StaticFiles(directory='static'), name='static')
 templates = Jinja2Templates(directory='templates')
@@ -21,9 +21,29 @@ async def upload_form(request: Request):
 
 @app.post('/upload')
 async def handle_file_upload(file: UploadFile = File(...)):
-    # process the file, generate barcodes
-    # import from previous main_2
+    temp_file = f'temp_{file.filename}'
+    barcode_dir = 'static/barcodes'
+    os.makedirs(barcode_dir, exist_ok=True)
     
-    # redirect to results page that contains the generated html
-    pass
-    return HTMLResponse()
+    # save the uploaded file locally
+    try:
+        with open(temp_file, 'wb') as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        # generate barcodes - svgs
+        product_descriptions = process_pdf(temp_file, barcode_dir)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        # delete the uploaded file
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
+    
+    # create an html page containing the svgs
+    html_content = "<html><body>"
+    for product_number, description in product_descriptions.items():
+        barcode_file = f"/static/barcodes/{product_number}.svg"
+        html_content += f'<img src="{barcode_file}" alt="Barcode"> {description}<br>'
+    html_content += "</body></html>"
+    
+    # redirect to html page containing the svgs
+    return HTMLResponse(content=html_content)
