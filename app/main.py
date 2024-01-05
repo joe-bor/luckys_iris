@@ -38,12 +38,42 @@ async def handle_file_upload(file: UploadFile = File(...)):
         if os.path.exists(temp_file):
             os.remove(temp_file)
     
-    # create an html page containing the svgs
-    html_content = "<html><body>"
+  # Generate HTML content with responsive two-column layout
+    html_content = """
+    <html>
+    <head>
+    <style>
+        .container {
+            column-count: 2;
+            column-gap: 20px;
+        }
+        .barcode-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+        .barcode-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .description {
+            margin-left: 10px;
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                column-count: 1;
+            }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+    """
     for product_number, description in product_descriptions.items():
-        barcode_file = f"/static/barcodes/{product_number}.svg"
-        html_content += f'<img src="{barcode_file}" alt="Barcode"> {description}<br>'
-    html_content += "</body></html>"
-    
-    # redirect to html page containing the svgs
+        barcode_file = f"/{barcode_dir}/{product_number}.svg"
+        html_content += f'<div class="barcode-item"><img src="{barcode_file}" alt="Barcode"><span class="description">{description}</span></div>'
+    html_content += "</div></body></html>"
+
+    # Return the HTML response
     return HTMLResponse(content=html_content)

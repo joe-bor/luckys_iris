@@ -17,7 +17,7 @@ def process_pdf(file_path, barcode_dir):
         for index, row in df.iterrows():
             upc_number = str(row['UPC']).zfill(12)
             description = row['Description']
-            barcode_file = os.path.join(barcode_dir, f"{upc_number}.svg")
+            barcode_file = os.path.join(barcode_dir, upc_number)
             generate_barcode(upc_number, barcode_file)
             product_descriptions[upc_number] = description
     
