@@ -4,12 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UPC to Barcode</title>
+    <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
-    <h1>Upload your IRIS Recommended Order (PDF)</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" accept=".pdf" required />
-      <button type="submit">Generate Barcodes</button>
-    </form>
+    <div class="container">
+      <h1>Upload your IRIS Recommended Order (PDF)</h1>
+      <form
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+        class="upload-form"
+      >
+        <input type="file" name="file" accept=".pdf" required />
+        <button type="submit">Generate Barcodes</button>
+      </form>
+    </div>
   </body>
 </html>

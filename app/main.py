@@ -77,3 +77,6 @@ async def handle_file_upload(file: UploadFile = File(...)):
 
     # Return the HTML response
     return HTMLResponse(content=html_content)
+
+
+# uvicorn app.main:app --reload
