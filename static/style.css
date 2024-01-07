@@ -5,7 +5,7 @@ body {
   height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: rgb(230, 219, 219);
+  background-color: rgb(234, 232, 223);
 }
 
 .container {
@@ -50,11 +50,29 @@ h1 {
 }
 
 .upload-form button:hover {
-  background-color: #555; /* Slightly lighter grey */
+  background-color: #555;
+}
+
+.instructions {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.instructions ul {
+  padding-left: 20px;
+}
+
+.instructions li {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 600px) {
   .container {
     padding: 10px;
+  }
+  .instructions {
+    font-size: 14px;
   }
 }

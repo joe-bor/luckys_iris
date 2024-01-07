@@ -78,7 +78,7 @@ async def handle_file_upload(file: UploadFile = File(...)):
     # Return the HTML response
     return HTMLResponse(content=html_content)
 
-@app.get('/clean')
+@app.get('/cleanup')
 async def delete_all_svg():
     barcode_dir = 'static/barcodes'
     for file in os.listdir(barcode_dir):
