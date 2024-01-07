@@ -78,5 +78,13 @@ async def handle_file_upload(file: UploadFile = File(...)):
     # Return the HTML response
     return HTMLResponse(content=html_content)
 
-
+@app.get('/clean')
+async def delete_all_svg():
+    barcode_dir = 'static/barcodes'
+    for file in os.listdir(barcode_dir):
+        file_path = os.path.join(barcode_dir, file)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+    
+    return {"message": f'All images in {barcode_dir} have been deleted'}
 # uvicorn app.main:app --reload
