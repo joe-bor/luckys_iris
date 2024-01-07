@@ -87,4 +87,5 @@ async def delete_all_svg():
             os.remove(file_path)
     
     return {"message": f'All images in {barcode_dir} have been deleted'}
+
 # uvicorn app.main:app --reload
