@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import asyncio
 import os
 import shutil
 from .utils.barcode_utils import process_pdf
@@ -75,12 +76,23 @@ async def handle_file_upload(file: UploadFile = File(...)):
         html_content += f'<div class="barcode-item"><img src="{barcode_file}" alt="Barcode"><span class="description">{description}</span></div>'
     html_content += "</div></body></html>"
 
+    asyncio.create_task(delete_all_svg(barcode_dir, 20))
+    
     # Return the HTML response
     return HTMLResponse(content=html_content)
 
 @app.get('/cleanup')
-async def delete_all_svg():
+async def cleanup_svgs():
     barcode_dir = 'static/barcodes'
+    await delete_all_svg(barcode_dir)
+    return {"message": f"All barcodes in {barcode_dir} have been deleted."}
+
+
+# Helper function for cleaning up barcodes
+async def delete_all_svg(barcode_dir, delay=0):
+    
+    await asyncio.sleep(delay=delay)
+    
     for file in os.listdir(barcode_dir):
         file_path = os.path.join(barcode_dir, file)
         if os.path.isfile(file_path):
