@@ -77,7 +77,7 @@ async def handle_file_upload(file: UploadFile = File(...)):
         html_content += f'<div class="barcode-item"><img src="{barcode_file}" alt="Barcode"><span class="description">{description}</span></div>'
     html_content += "</div></body></html>"
 
-    clean_up_delay = os.getenv("DELAY", 20)
+    clean_up_delay = int(os.getenv("DELAY", 20))
     asyncio.create_task(delete_all_svg(barcode_dir, clean_up_delay))
     
     # Return the HTML response
