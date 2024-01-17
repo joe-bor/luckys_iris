@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 import asyncio
 import os
 import shutil
+import logging
 from .utils.barcode_utils import process_pdf
 
 # Instantiate app
@@ -91,6 +92,7 @@ async def cleanup_svgs():
 
 # Helper function for cleaning up barcodes
 async def delete_all_svg(barcode_dir, delay=0):
+    logging.info(f"Starting cleanup of SVGs with delay {delay} seconds")
     
     await asyncio.sleep(delay=delay)
     
@@ -98,7 +100,8 @@ async def delete_all_svg(barcode_dir, delay=0):
         file_path = os.path.join(barcode_dir, file)
         if os.path.isfile(file_path):
             os.remove(file_path)
-    
+            
+    logging.info(f"All images in {barcode_dir} have been deleted")
     return {"message": f'All images in {barcode_dir} have been deleted'}
 
 # uvicorn app.main:app --reload
