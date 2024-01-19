@@ -34,4 +34,4 @@ def process_pdf(file_path, barcode_dir):
                 logging.error(f'Error generating barcode on page {i + 1}, row {index}: {e}')
 
     print(f'Total number of barcodes generated: {barcode_counter}')
-    return product_descriptions
+    return product_descriptions, barcode_counter

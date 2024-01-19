@@ -32,7 +32,7 @@ async def handle_file_upload(file: UploadFile = File(...)):
         with open(temp_file, 'wb') as buffer:
             shutil.copyfileobj(file.file, buffer)
         # generate barcodes - svgs
-        product_descriptions = process_pdf(temp_file, barcode_dir)
+        product_descriptions, barcode_counter = process_pdf(temp_file, barcode_dir)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:
@@ -45,6 +45,11 @@ async def handle_file_upload(file: UploadFile = File(...)):
     <html>
     <head>
     <style>
+        h3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .container {
             column-count: 2;
             column-gap: 20px;
@@ -70,8 +75,12 @@ async def handle_file_upload(file: UploadFile = File(...)):
     </style>
     </head>
     <body>
-    <div class="container">
     """
+    html_content += f'''
+    <h3>Number of barcodes generated: {barcode_counter} | NOTE: There's 30 rows in a full page.</h3>
+    <div class="container">
+    '''
+
     for product_number, description in product_descriptions.items():
         barcode_file = f"/{barcode_dir}/{product_number}.svg"
         html_content += f'<div class="barcode-item"><img src="{barcode_file}" alt="Barcode"><span class="description">{description}</span></div>'
