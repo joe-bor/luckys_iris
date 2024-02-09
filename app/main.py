@@ -22,7 +22,7 @@ async def upload_form(request: Request):
 
 
 @app.post('/upload')
-async def handle_file_upload(file: UploadFile = File(...)):
+async def handle_file_upload(request: Request, file: UploadFile = File(...)):
     temp_file = f'temp_{file.filename}'
     barcode_dir = 'static/barcodes'
     os.makedirs(barcode_dir, exist_ok=True)
@@ -39,58 +39,16 @@ async def handle_file_upload(file: UploadFile = File(...)):
         # delete the uploaded file
         if os.path.exists(temp_file):
             os.remove(temp_file)
-    
-  # Generate HTML content with responsive two-column layout
-    html_content = """
-    <html>
-    <head>
-    <style>
-        h3 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            column-count: 2;
-            column-gap: 20px;
-        }
-        .barcode-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            break-inside: avoid;
-        }
-        .barcode-item img {
-            max-width: 100%;
-            height: auto;
-        }
-        .description {
-            margin-left: 10px;
-        }
-        @media screen and (max-width: 768px) {
-            .container {
-                column-count: 1;
-            }
-        }
-    </style>
-    </head>
-    <body>
-    """
-    html_content += f'''
-    <h3>Number of barcodes generated: {barcode_counter} | NOTE: There's 30 rows in a full page.</h3>
-    <div class="container">
-    '''
-
-    for product_number, description in product_descriptions.items():
-        barcode_file = f"/{barcode_dir}/{product_number}.svg"
-        html_content += f'<div class="barcode-item"><img src="{barcode_file}" alt="Barcode"><span class="description">{description}</span></div>'
-    html_content += "</div></body></html>"
 
     clean_up_delay = int(os.getenv("DELAY", 20))
     asyncio.create_task(delete_all_svg(barcode_dir, clean_up_delay))
     
     # Return the HTML response
-    return HTMLResponse(content=html_content)
+    return templates.TemplateResponse('barcodes.html', {
+        'request': request,
+        'barcode_counter': barcode_counter,
+        'product_descriptions': product_descriptions
+    })
 
 @app.get('/cleanup')
 async def cleanup_svgs():
