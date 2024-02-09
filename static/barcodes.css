@@ -1,0 +1,28 @@
+/* static/styles.css */
+h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  column-count: 2;
+  column-gap: 20px;
+}
+.barcode-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+.barcode-item img {
+  max-width: 100%;
+  height: auto;
+}
+.description {
+  margin-left: 10px;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    column-count: 1;
+  }
+}
