@@ -26,9 +26,10 @@ def process_pdf(file_path, barcode_dir):
             try:
                 upc_number = str(row['UPC']).zfill(12)
                 description = row['Description']
+                order_qty = row['Order']
                 barcode_file = os.path.join(barcode_dir, upc_number)
                 generate_barcode(upc_number, barcode_file)
-                product_descriptions[upc_number] = description
+                product_descriptions[upc_number] = (description, order_qty)
                 barcode_counter += 1
             except Exception as e:
                 logging.error(f'Error generating barcode on page {i + 1}, row {index}: {e}')

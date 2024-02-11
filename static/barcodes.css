@@ -9,7 +9,9 @@ h3 {
   column-gap: 20px;
 }
 .barcode-item {
+  font-size: smaller;
   display: flex;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 10px;
   break-inside: avoid;
@@ -19,8 +21,9 @@ h3 {
   height: auto;
 }
 .description {
-  margin-left: 10px;
+  margin-left: 15px;
 }
+
 @media screen and (max-width: 768px) {
   .container {
     column-count: 1;
