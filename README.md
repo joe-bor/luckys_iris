@@ -1,9 +1,8 @@
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Imgur](https://i.imgur.com/ymdMUmO.jpg)
 
 # Lucky Stores - IRIS Order Helper
 
 This project simplifies the process for Department Managers at Lucky Stores Supermarket to view and edit their IRIS recommended orders by generating barcodes for each item in their current list.
-
 Instead of hand-typing in the order codes of each item in the hand-held gun, we simply just have to scan it.
 
 ## Demo
