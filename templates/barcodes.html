@@ -9,8 +9,8 @@
   </head>
   <body>
     <h3>
-      Number of barcodes generated: {{ barcode_counter }} | NOTE: There's 30
-      rows in a full page.
+      <span>Number of barcodes generated: {{ barcode_counter }}</span>
+      <span>NOTE: There's 30 rows in a full page.</span>
     </h3>
     <div class="container">
       {% for product_number, (description, order_qty) in

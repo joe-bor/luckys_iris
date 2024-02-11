@@ -6,7 +6,7 @@ import asyncio
 import os
 import shutil
 import logging
-from .utils.barcode_utils import process_pdf
+from .utils.barcode_utils import process_pdf, delete_all_svg
 
 # Instantiate app
 app = FastAPI()
@@ -55,20 +55,5 @@ async def cleanup_svgs():
     barcode_dir = 'static/barcodes'
     await delete_all_svg(barcode_dir)
     return {"message": f"All barcodes in {barcode_dir} have been deleted."}
-
-
-# Helper function for cleaning up barcodes
-async def delete_all_svg(barcode_dir, delay=0):
-    logging.info(f"Starting cleanup of SVGs with delay {delay} seconds")
-    
-    await asyncio.sleep(delay=delay)
-    
-    for file in os.listdir(barcode_dir):
-        file_path = os.path.join(barcode_dir, file)
-        if os.path.isfile(file_path):
-            os.remove(file_path)
-            
-    logging.info(f"All images in {barcode_dir} have been deleted")
-    return {"message": f'All images in {barcode_dir} have been deleted'}
 
 # uvicorn app.main:app --reload
