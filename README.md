@@ -27,7 +27,7 @@ This project simplifies the process for Department Managers at Lucky Stores Supe
 What did you learn while building this project?
 
 - Building backend with Python using FastApi 🐍
-- Table manipulation using pandas! 🐼
+- Table manipulation using pandas: Series and DataFrame types! 🐼
 - Jinja Templates 🥷🏼
 - Practice with Python's built-in modules:
   - os
@@ -37,7 +37,8 @@ What did you learn while building this project?
 
 What challenges did you face and how did you overcome them?
 
-- It took a lot of printing and debugging to get used to pandas' Series and DataFrame types. However, it was very well worth it, as I now see how powerful it is and its potential.
+- Understanding what pandas' Series and DataFrame types are is fairly straightforward. Manipulating them using built-in methods took some reading and a bunch of printing/debugging, this was solved by constantly referring to the pandas docs.
+- Another challenge I encountered was the need to keep track of the errors that my app throws while in production. I had to re-learn how to efficiently use loggers again. This time, just logging the essential details needed to reproduce the error in development in order to fix the bug.
 
 ## How to Run on Your Local Machine
 
@@ -89,6 +90,12 @@ No, I wanted to add a piece to my portfolio that is actually being used by peopl
 #### How did you come up with this?
 
 I saw an opportunity to make my life and my coworkers' easier by solving a problem we all faced.
+
+## Icebox
+
+- Add reactivity in the front-end (search/sort/filter).
+- create a database for the items/documents
+- refactor backend and follow MVC architecture
 
 ## Feedback
 
