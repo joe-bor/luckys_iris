@@ -14,14 +14,13 @@ This project simplifies the process for Department Managers at Lucky Stores Supe
 ## Demo
 
 <div>
-    <a href="https://www.loom.com/share/fbe32a7b4ad540589008d28515db4a6a">
+    <a href="https://www.loom.com/share/fbe32a7b4ad540589008d28515db4a6a" target='_blank'>
       <p>Check out this short clip of the app:</p>
     </a>
-    <a href="https://www.loom.com/share/fbe32a7b4ad540589008d28515db4a6a">
+    <a href="https://www.loom.com/share/fbe32a7b4ad540589008d28515db4a6a" target='_blank'>
       <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/fbe32a7b4ad540589008d28515db4a6a-with-play.gif">
     </a>
   </div>
-
 
 ## Lessons Learned
 
